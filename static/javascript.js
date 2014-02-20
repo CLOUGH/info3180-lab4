@@ -6,8 +6,14 @@ var audio = new Audio(document.URL+"static/lion.mp3");
 
 function catWalk() {
   
-  var currentLeft = parseInt(img.style.left);; 
+  var currentLeft =0;
   var direction =  "forwards";
+  if (localStorage.getItem("currentLeft") === null) {
+    currentLeft = parseInt(img.style.left);
+  }
+  else{
+    currentLeft = parseInt(localStorage.getItem("currentLeft"));
+  }  
 
   if (walkForwards && (currentLeft > (window.innerWidth-img.width))) {
     walkForwards = false;
@@ -23,13 +29,9 @@ function catWalk() {
     currentLeft = currentLeft - 10;
     direction =  "backwards";
   }
-  img.style.left = currentLeft  + 'px';  
-  if (localStorage.getItem("infiniteScrollEnabled") === null) {
-    // create the local storage for the cat position
-    localStorage.setItem('currentLeft', JSON.stringify(currentLeft));
-  }
-  
 
+  img.style.left = currentLeft  + 'px';  
+  localStorage.setItem('currentLeft', JSON.stringify(currentLeft));
   localStorage.setItem('currentDirection', JSON.stringify(direction));
   
 }
